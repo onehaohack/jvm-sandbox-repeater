@@ -5,6 +5,7 @@ import com.alibaba.jvm.sandbox.repeater.plugin.domain.RepeaterResult;
 import com.alibaba.repeater.console.common.domain.ModuleConfigBO;
 import com.alibaba.repeater.console.common.params.ModuleConfigParams;
 import com.alibaba.repeater.console.service.ModuleConfigService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,11 +20,13 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/facade/api")
+
 public class ConfigFacadeApi {
 
     @Resource
     private ModuleConfigService moduleConfigService;
 
+    @Autowired
     @RequestMapping("/config/{appName}/{env}")
     public RepeaterResult<RepeaterConfig> getConfig(@PathVariable("appName") String appName,
                                                     @PathVariable("env") String env) {
