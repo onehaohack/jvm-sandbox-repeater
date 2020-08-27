@@ -5,7 +5,10 @@ import com.alibaba.jvm.sandbox.repeater.plugin.domain.RepeaterResult;
 import com.alibaba.repeater.console.common.params.ReplayParams;
 import com.alibaba.repeater.console.service.RecordService;
 import com.alibaba.repeater.console.service.ReplayService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import lombok.Data;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -25,12 +28,14 @@ public class PersistenceFacadeApi {
     @Resource
     private ReplayService replayService;
 
+    @Autowired
     @RequestMapping(value = "record/{appName}/{traceId}", method = RequestMethod.GET)
     public RepeaterResult<String> getWrapperRecord(@PathVariable("appName") String appName,
                                                    @PathVariable("traceId") String traceId) {
         return recordService.get(appName, traceId);
     }
 
+    @Autowired
     @RequestMapping(value = "repeat/{appName}/{traceId}", method = RequestMethod.GET)
     public RepeaterResult<String> repeat(@PathVariable("appName") String appName,
                                          @PathVariable("traceId") String traceId,
@@ -41,16 +46,19 @@ public class PersistenceFacadeApi {
         return replayService.replay(params);
     }
 
+    @Autowired
     @RequestMapping(value = "record/save", method = RequestMethod.POST)
     public RepeaterResult<String> recordSave(@RequestBody String body) {
         return recordService.saveRecord(body);
     }
 
+    @Autowired
     @RequestMapping(value = "repeat/save", method = RequestMethod.POST)
     public RepeaterResult<String> repeatSave(@RequestBody String body) {
         return replayService.saveRepeat(body);
     }
 
+    @Autowired
     @RequestMapping(value = "repeat/callback/{repeatId}", method = RequestMethod.GET)
     public RepeaterResult<RepeatModel> callback(@PathVariable("repeatId") String repeatId) {
         return recordService.callback(repeatId);
