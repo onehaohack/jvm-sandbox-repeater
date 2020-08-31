@@ -23,10 +23,11 @@ import javax.annotation.Resource;
 
 public class ConfigFacadeApi {
 
+    @Autowired
     @Resource
     private ModuleConfigService moduleConfigService;
 
-    @Autowired
+//    @Autowired
     @RequestMapping("/config/{appName}/{env}")
     public RepeaterResult<RepeaterConfig> getConfig(@PathVariable("appName") String appName,
                                                     @PathVariable("env") String env) {
